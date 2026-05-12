@@ -1,0 +1,35 @@
+Patients: ID,  EmergencyContacts,Dieases, Documents and MedicalHistory(Presnet and Past), Treatment Notes, Appointments
+    Do booking, Console doctor, Acess documnets and medicalSuggestions
+Appointments:  links patient's Id and doctor's Id, date and time, Result, Notes
+Doctor: Id, Patients looking after, available time and schedule, History of treatments, Reviews, Cases attained.... 
+
+------Working-------
+Logins
+ if doctor look for their appointments and schedules, can acess patients details
+ if Patients Sees dashboard , set a appointments, look for notes and past-future treatments
+Log out
+
+#Dashboard
+    Doctor:Todays Queues, Search patients, Upcomming close Patients
+        Details leads to patients details 
+    Patients:Upcomming appointment if any , Recently visited/Last
+        details leads to documnets
+
+#Consultations
+    Doctor writes diagnosis, symptoms, and treatment plan directly on the appointment page after seeing the patient.
+    Patients sees  result if any in this tab.
+    Includes: medicines, dosage, time, etc
+
+#Schedule view(doctor)
+    Doctor sees a a list of their appointments(maybe weekly calendar). Shows free slots vs booked ones at a glance.
+
+#My record(patient)
+    Patients sees past and upcomming dates-appointmennts, gets all necessary documents attached with the timeline
+
+#bookappointment(patients)
+    appoints doctor at available time
+
+#profile
+    details 
+
+#logout
