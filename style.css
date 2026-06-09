@@ -1,0 +1,23 @@
+/* The outer div — this is where the background image lives */
+.hero-section {
+    background-image: url('../images/hero.jpg');
+    background-size: cover;       /* stretches image to fill the whole div */
+    background-position: center;  /* keeps the center of the image in frame */
+    background-repeat: no-repeat;
+    height: 100vh;                /* 100vh = full screen height */
+}
+
+/* The dark overlay layer */
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);  /* black at 55% transparency */
+    display: flex;
+    align-items: center;     /* centers content vertically */
+    justify-content: center; /* centers content horizontally */
+}
+
+/* The content sits naturally inside, no extra styling needed */
+.hero-content {
+    max-width: 700px;
+}
