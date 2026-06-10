@@ -1,0 +1,473 @@
+/*
+ * register.css — CityMed HMS Registration Page
+ *
+ * Palette: teal #0B7C75 / slate #1E293B / wash #EAF5F4 / error #DC2626
+ * Fonts  : Playfair Display (headings), Inter (body)
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #eaf5f4;
+  color: #475569;
+  min-height: 100vh;
+}
+
+/* ── PAGE WRAPPER ─────────────────────────────────────────────── */
+
+.page-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── HEADER ───────────────────────────────────────────────────── */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(120deg, #0b7c75 0%, #054e49 100%);
+  border-radius: 0 0 1.25rem 1.25rem;
+  padding: 1.25rem 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* The + cross mark standing in for an icon */
+.logo-cross {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.logo-text {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.header-back-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.header-back-link:hover {
+  color: #fff;
+}
+
+/* ── REGISTRATION CARD ────────────────────────────────────────── */
+
+.register-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(11, 124, 117, 0.08);
+  padding: 2.25rem 2.5rem;
+  flex: 1;
+}
+
+.card-intro {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1.5px solid #eaf5f4;
+}
+
+.card-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.card-sub {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* ── ALERTS ───────────────────────────────────────────────────── */
+
+.alert {
+  border-radius: 0.625rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  line-height: 1.45;
+}
+
+.alert--error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+.alert--success {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* ── FORM SECTIONS ────────────────────────────────────────────── */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section {
+  border: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+/* Numbered section heading */
+.section-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #0b7c75;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1.5px solid #eaf5f4;
+  width: 100%;
+}
+
+.legend-number {
+  width: 1.375rem;
+  height: 1.375rem;
+  background: #0b7c75;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── FIELDS ───────────────────────────────────────────────────── */
+
+/* Two-column layout for first/last name */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.field-row .field-group {
+  margin-bottom: 0;
+}
+
+.field-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.required {
+  color: #dc2626;
+  margin-left: 0.15em;
+}
+
+.optional-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #94a3b8;
+  background: #f1f5f9;
+  border-radius: 0.25rem;
+  padding: 0.0625rem 0.375rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.7rem 0.875rem;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.625rem;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+.field-input:focus {
+  border-color: #0b7c75;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(11, 124, 117, 0.12);
+}
+
+.field-input:hover:not(:focus) {
+  border-color: #cbd5e1;
+}
+.field-input::placeholder {
+  color: #cbd5e1;
+  font-weight: 300;
+}
+
+/* Red border when a field fails server-side validation */
+.field-input--error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08) !important;
+}
+
+.field-hint {
+  font-size: 0.78125rem;
+  color: #94a3b8;
+}
+.field-error {
+  font-size: 0.78125rem;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* ── ROLE CARDS ───────────────────────────────────────────────── */
+
+/* Two clickable cards that wrap hidden radio inputs */
+.role-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  padding: 1.5rem 1rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+  user-select: none;
+  position: relative;
+}
+
+.role-card:hover {
+  border-color: #0b7c75;
+  background: #fff;
+}
+
+.role-card--selected {
+  border-color: #0b7c75;
+  background: #eaf5f4;
+  box-shadow: 0 0 0 3px rgba(11, 124, 117, 0.12);
+}
+
+/* Radio is visually hidden — the card label acts as the click target */
+.role-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.role-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.role-card--selected .role-card-title {
+  color: #0b7c75;
+}
+
+.role-card-desc {
+  font-size: 0.78125rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* ── PASSWORD FIELD ───────────────────────────────────────────── */
+
+/* Wraps the input and the show/hide toggle button */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap .field-input {
+  padding-right: 2.75rem;
+}
+
+.pwd-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1rem;
+  color: #94a3b8;
+  line-height: 1;
+  transition: color 0.18s;
+}
+
+.pwd-toggle:hover {
+  color: #0b7c75;
+}
+
+/* ── SUBMIT BUTTON ────────────────────────────────────────────── */
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #0b7c75 0%, #075e58 100%);
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(11, 124, 117, 0.3);
+  transition:
+    background 0.22s,
+    transform 0.12s,
+    box-shadow 0.22s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #13a89e 0%, #0b7c75 100%);
+  box-shadow: 0 6px 20px rgba(11, 124, 117, 0.38);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+.btn-primary:focus-visible {
+  outline: 3px solid #13a89e;
+  outline-offset: 2px;
+}
+
+/* ── SWITCH LINK ──────────────────────────────────────────────── */
+
+.switch-link {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-top: 1.25rem;
+}
+
+.switch-link a {
+  color: #0b7c75;
+  font-weight: 600;
+  text-decoration: none;
+}
+.switch-link a:hover {
+  color: #13a89e;
+  text-decoration: underline;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+
+.page-footer {
+  text-align: center;
+  padding: 1.5rem 0 0;
+  font-size: 0.78125rem;
+  color: #cbd5e1;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .role-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .register-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 0.875rem;
+    box-shadow: none;
+    border: 1.5px solid #e2e8f0;
+  }
+
+  .page-header {
+    border-radius: 0 0 0.875rem 0.875rem;
+    padding: 1rem 1.25rem;
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .register-card {
+    padding: 1.25rem 1rem;
+  }
+  .page-wrapper {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
