@@ -1,0 +1,17 @@
+database code to paste and run in mysql server 
+open localhost/phpmyadmin
+create a database table named user_syste
+
+inside that tabel run the sql code
+-============================------------=================
+        CREATE DATABASE user_login;
+
+        USE user_login;
+
+        CREATE TABLE students (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            UserName VARCHAR(50) NOT NULL,
+            Password VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+-============================

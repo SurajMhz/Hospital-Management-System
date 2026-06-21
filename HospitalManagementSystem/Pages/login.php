@@ -5,6 +5,28 @@ include '../DataBaseConnection/db.php';
 $error_message = '';
 $success_message = '';
 
+
+function LoginDataCheckup($conn, $email, $password)
+{
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            return $user; // success — hand back the full user row
+        }
+
+        return 'wrong_password';
+    }
+
+    return 'not_found';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = trim($_POST['email'] ?? '');
@@ -16,29 +38,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = 'Please enter a valid email address.';
     } else {
 
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
+        $checkResult = LoginDataCheckup($conn, $email, $password);
 
-        $result = $stmt->get_result();
+        if (is_array($checkResult)) {
+            // Successful login — $checkResult holds the user row
+            session_regenerate_id(true);
 
-        if ($result->num_rows === 1) {
+            $_SESSION['user_id'] = $checkResult['id'];
+            $_SESSION['user_name'] = $checkResult['fullname'];
 
-            $user = $result->fetch_assoc();
+            header("Location: dashboard.php");
+            exit;
 
-            if (password_verify($password, $user['password'])) {
-
-                session_regenerate_id(true);
-
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['fullname'];
-
-                header("Location: dashboard.php");
-                exit;
-
-            } else {
-                $error_message = 'Incorrect password.';
-            }
+        } elseif ($checkResult === 'wrong_password') {
+            $error_message = 'Incorrect password.';
 
         } else {
             $error_message = 'User not found.';
