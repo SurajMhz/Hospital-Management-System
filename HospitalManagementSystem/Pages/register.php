@@ -1,4 +1,5 @@
 <?php
+include '../DataBaseConnection/db.php';
 session_start();
 
 $errors = [];
@@ -18,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'confirm_pwd' => $_POST['confirm_pwd'] ?? '',
     ];
 
-    // Validate name fields — letters, spaces, and hyphens only
+    // Validate name fields
     if (empty($formData['first_name'])) {
         $errors['first_name'] = 'First name is required.';
     } elseif (!preg_match('/^[A-Za-z\s\-]+$/', $formData['first_name'])) {
@@ -72,9 +73,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['confirm_pwd'] = 'Passwords do not match.';
     }
     // If all fields are valid, redirect to login with a success flash message
-    if (empty($errors)) { // TODO: hash password and insert into DB before redirecting
-        // $hash=password_hash($formData['password'], PASSWORD_BCRYPT);
+    if (empty($errors)) {
+
+        // hash password
+        $hash = password_hash($formData['password'], PASSWORD_BCRYPT);
+
+        // combine fullname properly
+        $fullname = $formData['first_name'] . " " . $formData['last_name'];
+
+        $dbemail = $formData['email'];
+        $dbphone = $formData['phone'];
+
         $_SESSION['flash_registered'] = 'Account created! You can now sign in.';
+
+        $sql = "INSERT INTO users(fullname, email, password, phone)
+            VALUES('$fullname', '$dbemail', '$hash', '$dbphone')";
+
+        mysqli_query($conn, $sql);
+
+        // redirect
         header('Location: login.php');
         exit;
     }
@@ -98,7 +115,7 @@ function errorClass(string $field): string
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Account — CityMed HMS</title>
+    <title>Create Account</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap"
@@ -122,8 +139,7 @@ function errorClass(string $field): string
 
             <div class="card-intro">
                 <h1 class="card-title">Create your account</h1>
-                <p class="card-sub">Join CityMed HMS to manage appointments, patient records, and medical history —
-                    all in one place.</p>
+                <p class="card-sub">Join CityMed HMS.</p>
             </div>
 
             <!-- Show error count banner if validation failed -->
@@ -176,10 +192,10 @@ function errorClass(string $field): string
 
                     <div class="field-group">
                         <label for="phone" class="field-label">
-                            Phone number <span class="optional-tag">optional</span>
+                            Phone number <span class="required">*</span></label>
                         </label>
                         <input type="tel" id="phone" name="phone" class="field-input <?= errorClass('phone') ?>"
-                            placeholder="+1 (555) 000-0000" value="<?= old('phone') ?>" autocomplete="tel" />
+                            placeholder="+97 9812345678" value="<?= old('phone') ?>" autocomplete="tel" required />
                         <?php if (isset($errors['phone'])): ?>
                             <span class="field-error" role="alert"><?= $errors['phone'] ?></span>
                         <?php endif; ?>
@@ -268,7 +284,7 @@ function errorClass(string $field): string
         </main>
 
         <footer class="page-footer">
-            <p>&copy; <?= date('Y') ?> CityMed Hospital Management System. All rights reserved.</p>
+            CityMed Hospitala OK
         </footer>
 
     </div>

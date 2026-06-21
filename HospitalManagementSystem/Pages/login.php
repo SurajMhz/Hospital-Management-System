@@ -1,77 +1,54 @@
 <?php
-/**
- * login.php
- * Hospital Management System — Staff Login Portal
- *
- * Handles display and basic server-side validation of the staff login form.
- * On successful validation this page would authenticate the user against
- * the database and start a session; database logic is left as a stub so
- * the file works as a clean front-end starting point.
- *
- * Dependencies: login.css
- * Links to   : register.php
- */
-
-// Start a PHP session to store error messages across redirects
 session_start();
+include '../DataBaseConnection/db.php';
 
-/* ---------------------------------------------------------------
- * Process the submitted login form (POST request only)
- * --------------------------------------------------------------- */
-$error_message = '';   // Holds any validation / auth error shown to the user
-$success_message = ''; // Holds a success notice (e.g. "just registered")
+$error_message = '';
+$success_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Sanitise inputs — strip whitespace and remove dangerous HTML characters
-    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
-    $password = htmlspecialchars(trim($_POST['password'] ?? ''));
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-    /* --- Basic field validation ---------------------------------- */
     if (empty($email) || empty($password)) {
         $error_message = 'Both email and password are required.';
-
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Make sure the email field contains a syntactically valid address
         $error_message = 'Please enter a valid email address.';
-
     } else {
-        /*
-         * TODO: Replace the stub below with real database authentication.
-         *
-         * Example flow:
-         *   1. Query the `staff` table for a row matching $email.
-         *   2. Use password_verify($password, $row['password_hash']) to check.
-         *   3. On success: regenerate the session ID, store $row['staff_id']
-         *      and $row['role'] in $_SESSION, then redirect to dashboard.php.
-         *
-         * $stmt = $pdo->prepare("SELECT * FROM staff WHERE email = ? LIMIT 1");
-         * $stmt->execute([$email]);
-         * $user = $stmt->fetch(PDO::FETCH_ASSOC);
-         *
-         * if ($user && password_verify($password, $user['password_hash'])) {
-         *     session_regenerate_id(true);
-         *     $_SESSION['staff_id'] = $user['id'];
-         *     $_SESSION['role']     = $user['role'];
-         *     header('Location: dashboard.php');
-         *     exit;
-         * } else {
-         *     $error_message = 'Invalid credentials. Please try again.';
-         * }
-         */
 
-        // --- Stub: treat every valid-format submission as a success ---
-        $success_message = 'Login successful! Redirecting to dashboard…';
-        // header('Location: dashboard.php'); exit;
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+
+            $user = $result->fetch_assoc();
+
+            if (password_verify($password, $user['password'])) {
+
+                session_regenerate_id(true);
+
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['fullname'];
+
+                header("Location: dashboard.php");
+                exit;
+
+            } else {
+                $error_message = 'Incorrect password.';
+            }
+
+        } else {
+            $error_message = 'User not found.';
+        }
     }
 }
 
-/* ---------------------------------------------------------------
- * Pick up any "just registered" flash message passed via session
- * --------------------------------------------------------------- */
 if (!empty($_SESSION['flash_registered'])) {
     $success_message = $_SESSION['flash_registered'];
-    unset($_SESSION['flash_registered']); // Show once then discard
+    unset($_SESSION['flash_registered']);
 }
 ?>
 <!DOCTYPE html>
@@ -157,11 +134,6 @@ if (!empty($_SESSION['flash_registered'])) {
                         <?= $success_message ?>
                     </div>
                 <?php endif; ?>
-
-                <!-- ------------------------------------------------
-                     Login form
-                     action="" submits back to this same page (POST)
-                ------------------------------------------------ -->
                 <form method="POST" action="" novalidate class="auth-form">
 
                     <!-- Email field -->

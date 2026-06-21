@@ -335,11 +335,7 @@
   <section class="py-5" id="contact">
     <div class="container">
 
-      <div class="section-heading text-center mb-5">
-        <p class="section-label text-primary">REACH OUT</p>
-        <h2 class="fw-bold">Book an Appointment</h2>
-        <div class="heading-line"></div>
-      </div>
+
 
       <div class="row g-5 align-items-start">
 
@@ -389,46 +385,7 @@
         </div>
 
         <!-- Right: Appointment Form -->
-        <div class="col-md-7">
-          <div class="contact-form-card p-4 rounded-4 shadow-sm">
-            <!-- NOTE: This form is HTML only for now. PHP processing comes in a later phase. -->
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" placeholder="Your name">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Email Address</label>
-                <input type="email" class="form-control" placeholder="your@email.com">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" placeholder="Phone Number">
-              </div>
-              <!-- <div class="col-md-6">
-                <label class="form-label">Department</label>
-                <select class="form-select">
-                  <option value="">Select Department</option>
-                  <option>Cardiology</option>
-                  <option>Neurology</option>
-                  <option>Orthopedics</option>
-                  <option>Pediatrics</option>
-                  <option>Emergency</option>
-                  <option>Laboratory</option>
-                </select>
-              </div> -->
-              <div class="col-12">
-                <label class="form-label">Message</label>
-                <textarea class="form-control" rows="3" placeholder="Describe your concern..."></textarea>
-              </div>
-              <div class="col-12">
-                <button type="button" class="btn btn-primary w-100 py-2">
-                  <i class="bi bi-send me-2"></i>Send Appointment Request
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
       </div>
     </div>
