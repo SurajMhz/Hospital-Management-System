@@ -63,6 +63,14 @@ if (!empty($_SESSION['flash_registered'])) {
     $success_message = $_SESSION['flash_registered'];
     unset($_SESSION['flash_registered']);
 }
+
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
