@@ -1,0 +1,498 @@
+/*
+ * login.css
+ * Hospital Management System — Login Page Styles
+ *
+ * Design system:
+ *   Primary teal  : #0B7C75  (deep medical teal — trust, calm, professionalism)
+ *   Teal light    : #13A89E  (hover / accent)
+ *   Teal dark     : #075E58  (active states)
+ *   Teal bg       : #EAF5F4  (panel wash)
+ *   Slate         : #1E293B  (headings)
+ *   Body text     : #475569
+ *   Muted text    : #94A3B8
+ *   Border        : #E2E8F0
+ *   White         : #FFFFFF
+ *   Error red     : #DC2626
+ *   Success green : #16A34A
+ *
+ *  Typography:
+ *   Display : Playfair Display 600/700
+ *   Body    : Inter 300/400/500/600
+ */
+
+/* ================================================================
+   RESET & BASE
+================================================================ */
+
+/* Box-sizing reset — ensures padding is included in element width */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Root font and colour defaults */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 400;
+  background-color: #eaf5f4; /* Soft teal wash behind the whole layout */
+  color: #475569;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ================================================================
+   SPLIT LAYOUT
+   Left  (brand-panel)  = 45 % on desktop, hidden on mobile
+   Right (form-panel)   = 55 % on desktop, full-width on mobile
+================================================================ */
+
+.split-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ----------------------------------------------------------------
+   LEFT PANEL — brand / marketing strip
+---------------------------------------------------------------- */
+
+.brand-panel {
+  flex: 0 0 45%;
+  position: relative;
+  overflow: hidden;
+
+  /* Rich teal gradient — the signature element of this design */
+  background: linear-gradient(150deg, #0b7c75 0%, #054e49 60%, #02312d 100%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 3.5rem;
+  color: #ffffff;
+}
+
+/* Logo row inside the brand panel */
+.brand-panel .logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+/* The cross-in-box SVG icon */
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+/* Large headline */
+.brand-headline {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+/* Supporting paragraph */
+.brand-sub {
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 26rem;
+  margin-bottom: 3rem;
+}
+
+/* Trust statistics list */
+.stat-list {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* Large metric value */
+.stat-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Small unit inside the number (%, /7) */
+.stat-suffix {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Label below the number */
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+/* Decorative frosted-glass circles in the corners */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.deco-circle--lg {
+  width: 420px;
+  height: 420px;
+  bottom: -140px;
+  right: -120px;
+}
+
+.deco-circle--sm {
+  width: 200px;
+  height: 200px;
+  top: -60px;
+  right: 40px;
+}
+
+/* ----------------------------------------------------------------
+   RIGHT PANEL — form area
+---------------------------------------------------------------- */
+
+.form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: #f8fafc; /* Slightly off-white for eye comfort */
+}
+
+/* ================================================================
+   FORM CARD
+================================================================ */
+
+.form-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 1.25rem;
+
+  /* Soft elevation — clinical cleanliness */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(11, 124, 117, 0.08);
+
+  padding: 2.5rem 2.25rem;
+}
+
+/* Card headline */
+.card-header {
+  margin-bottom: 1.75rem;
+}
+
+.card-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.card-sub {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* ================================================================
+   ALERT BANNERS
+================================================================ */
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.625rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  line-height: 1.45;
+}
+
+/* SVG icon inside alert */
+.alert svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* Error variant — red tint */
+.alert--error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* Success variant — green tint */
+.alert--success {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+/* ================================================================
+   FORM ELEMENTS
+================================================================ */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+/* Individual field wrapper */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Row used for label + forgot-password link side by side */
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* Field label */
+.field-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: 0.01em;
+}
+
+/* Forgot password link */
+.forgot-link {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #0b7c75;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.forgot-link:hover {
+  color: #13a89e;
+  text-decoration: underline;
+}
+
+/* Wrapper that positions the icon inside the input */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Prefix icon (envelope, lock) */
+.input-icon {
+  position: absolute;
+  left: 0.875rem;
+  width: 1rem;
+  height: 1rem;
+  color: #94a3b8;
+  pointer-events: none;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Main text/email/password input */
+.field-input {
+  width: 100%;
+  padding: 0.7rem 0.75rem 0.7rem 0.625rem; /* left room for icon, right for toggle */
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: #1e293b;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.625rem;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+/* Input focus ring — teal outline matching the brand */
+.field-input:focus {
+  border-color: #0b7c75;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(11, 124, 117, 0.12);
+}
+
+/* Hover — subtle highlight */
+.field-input:hover:not(:focus) {
+  border-color: #cbd5e1;
+}
+
+/* Placeholder colour */
+.field-input::placeholder {
+  color: #cbd5e1;
+  font-weight: 300;
+}
+
+/* Password visibility toggle button */
+.pwd-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  transition: color 0.18s;
+}
+
+.pwd-toggle:hover {
+  color: #0b7c75;
+}
+
+.pwd-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* ================================================================
+   PRIMARY BUTTON
+================================================================ */
+
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8125rem 1.5rem;
+  background: linear-gradient(135deg, #0b7c75 0%, #075e58 100%);
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition:
+    background 0.22s,
+    transform 0.12s,
+    box-shadow 0.22s;
+  box-shadow: 0 4px 14px rgba(11, 124, 117, 0.3);
+  margin-top: 0.25rem;
+}
+
+.btn-primary svg {
+  width: 1.0625rem;
+  height: 1.0625rem;
+  flex-shrink: 0;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #13a89e 0%, #0b7c75 100%);
+  box-shadow: 0 6px 20px rgba(11, 124, 117, 0.38);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(11, 124, 117, 0.28);
+}
+
+/* Focus ring for keyboard navigation */
+.btn-primary:focus-visible {
+  outline: 3px solid #13a89e;
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   SWITCH LINK (register / login toggle)
+================================================================ */
+
+.switch-link {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-top: 1.25rem;
+}
+
+.switch-link a {
+  color: #0b7c75;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.switch-link a:hover {
+  color: #13a89e;
+  text-decoration: underline;
+}
+
+/* ================================================================
+   SECURITY NOTICE
+================================================================ */
+
+.security-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.security-note svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  color: #94a3b8;
+}
