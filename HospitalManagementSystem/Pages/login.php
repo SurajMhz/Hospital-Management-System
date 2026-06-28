@@ -46,8 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['user_id'] = $checkResult['id'];
             $_SESSION['user_name'] = $checkResult['fullname'];
+            $_SESSION['user_role'] = $checkResult['role'];
 
-            header("Location: dashboard.php");
+            if ($checkResult['role'] === 'doctor') {
+                header("Location: ../DoctorPanel/pages/dashboard.php");
+            } else {
+                // Patient panel doesn't exist yet — send patients to the main page for now
+                header("Location: mainpage.php");
+            }
             exit;
 
         } elseif ($checkResult === 'wrong_password') {
@@ -65,12 +71,6 @@ if (!empty($_SESSION['flash_registered'])) {
 }
 
 
-$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">

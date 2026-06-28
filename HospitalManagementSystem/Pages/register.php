@@ -83,13 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $dbemail = $formData['email'];
         $dbphone = $formData['phone'];
+        $dbrole = $formData['role'];
 
         $_SESSION['flash_registered'] = 'Account created! You can now sign in.';
 
-        $sql = "INSERT INTO users(fullname, email, password, phone)
-            VALUES('$fullname', '$dbemail', '$hash', '$dbphone')";
-
-        mysqli_query($conn, $sql);
+        $stmt = $conn->prepare("INSERT INTO users (fullname, email, password, phone, role) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $fullname, $dbemail, $hash, $dbphone, $dbrole);
+        $stmt->execute();
 
         // redirect
         header('Location: login.php');
@@ -120,7 +120,7 @@ function errorClass(string $field): string
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../css./register.css" />
+    <link rel="stylesheet" href="../css/register.css" />
 </head>
 
 <body>
