@@ -51,11 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($checkResult['role'] === 'doctor') {
                 header("Location: ../DoctorPanel/pages/dashboard.php");
             } else {
-                // Patient login — set patient_id and redirect to dashboard
-                $_SESSION['patient_id'] = $checkResult['id'];
-                $_SESSION['patient_name'] = $checkResult['fullname'];
-                $_SESSION['patient_phone'] = $checkResult['phone'];
-                header("Location: ../../Patient/Dashboard.php");
+                // Patient panel doesn't exist yet — send patients to the main page for now
+                header("Location: mainpage.php");
             }
             exit;
 

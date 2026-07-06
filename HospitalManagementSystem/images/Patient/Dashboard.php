@@ -3,7 +3,7 @@ session_start();
 
 // Check if patient is logged in
 if (!isset($_SESSION['patient_id'])) {
-    header("Location: ../../Patient/Dashboard.php");
+    header("Location: ../Pages/login.php");
     exit();
 }
 
