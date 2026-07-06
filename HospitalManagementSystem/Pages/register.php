@@ -8,7 +8,7 @@ $formData = [];
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Sanitise all incoming fields
+    // Sanitizing all incoming fields
     $formData = [
         'first_name' => htmlspecialchars(trim($_POST['first_name'] ?? '')),
         'last_name' => htmlspecialchars(trim($_POST['last_name'] ?? '')),
@@ -39,12 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = 'Enter a valid email address.';
     }
 
-    // Phone is optional — only validate if provided
+    // Phone is optional
     if (!empty($formData['phone']) && !preg_match('/^\+?[0-9\s\-\(\)]{7,20}$/', $formData['phone'])) {
         $errors['phone'] = 'Enter a valid phone number.';
     }
 
-    // Role must be one of the two allowed values
+    // Role 
     if (empty($formData['role']) || !in_array($formData['role'], ['doctor', 'patient'])) {
         $errors['role'] = 'Please select your role.';
     }
@@ -78,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // hash password
         $hash = password_hash($formData['password'], PASSWORD_BCRYPT);
 
-        // combine fullname properly
         $fullname = $formData['first_name'] . " " . $formData['last_name'];
 
         $dbemail = $formData['email'];
@@ -87,16 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $_SESSION['flash_registered'] = 'Account created! You can now sign in.';
 
-        $stmt = $conn->prepare("INSERT INTO users (fullname, email, password, phone, role) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $fullname, $dbemail, $hash, $dbphone, $dbrole);
-        $stmt->execute();
+        $stmt = mysqli_prepare($conn, "INSERT INTO users (fullname, email, password, phone, role) VALUES (?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "sssss", $fullname, $dbemail, $hash, $dbphone, $dbrole);
+        mysqli_stmt_execute($stmt);
 
-        // redirect
+        // redirecting to login page
         header('Location: login.php');
         exit;
     }
 }
-// Returns the previously submitted value so the form is sticky on errors 
+//after error formdata stays
 function old(string $field): string
 {
     global
@@ -142,7 +141,7 @@ function errorClass(string $field): string
                 <p class="card-sub">Join CityMed HMS.</p>
             </div>
 
-            <!-- Show error count banner if validation failed -->
+            <!-- Shows error count banner if validation failed -->
             <?php if (!empty($errors)): ?>
                 <div class="alert alert--error" role="alert">
                     Please fix the <?= count($errors) ?> error<?= count($errors) > 1 ? 's' : '' ?> highlighted below.
@@ -151,7 +150,7 @@ function errorClass(string $field): string
 
             <form method="POST" action="" novalidate class="auth-form">
 
-                <!-- Section 1: Basic personal details -->
+                <!-- Basic personal details -->
                 <fieldset class="form-section">
                     <legend class="section-legend">
                         <span class="legend-number">1</span>
@@ -202,7 +201,7 @@ function errorClass(string $field): string
                     </div>
                 </fieldset>
 
-                <!-- Section 2: Role selection — Doctor or Patient -->
+                <!--  Role selection — Doctor or Patient -->
                 <fieldset class="form-section">
                     <legend class="section-legend">
                         <span class="legend-number">2</span>
@@ -235,7 +234,7 @@ function errorClass(string $field): string
                     </div>
                 </fieldset>
 
-                <!-- Section 3: Account password -->
+                <!--  Account password -->
                 <fieldset class="form-section">
                     <legend class="section-legend">
                         <span class="legend-number">3</span>
@@ -290,7 +289,7 @@ function errorClass(string $field): string
     </div>
 
     <script>
-        // Toggle a password field between masked and visible
+        // Toggle  password field between hidden and visible
         function togglePassword(btn) {
             const input = btn.closest('.input-wrap').querySelector('input');
             input.type = input.type === 'password' ? 'text' : 'password';
