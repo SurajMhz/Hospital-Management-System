@@ -5,21 +5,18 @@ include '../DataBaseConnection/db.php';
 $error_message = '';
 $success_message = '';
 
-//function to Check login Data from the database
+
 function LoginDataCheckup($conn, $email, $password)
 {
-    //writing the sql to get the user data
-    //prepare() to avoid unwanted code 
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    //s as string for the binding of the ? as email
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    //result gets the result of the querry
+
     $result = $stmt->get_result();
-    //verifying the data
+
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        // Verify the entered password against the stored password hash
+
         if (password_verify($password, $user['password'])) {
             return $user; // success — hand back the full user row
         }
@@ -31,7 +28,7 @@ function LoginDataCheckup($conn, $email, $password)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //clean data entry
+
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
@@ -54,11 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($checkResult['role'] === 'doctor') {
                 header("Location: ../DoctorPanel/pages/dashboard.php");
             } else {
-                // Patient login — set patient_id and redirect to dashboard
-                $_SESSION['patient_id'] = $checkResult['id'];
-                $_SESSION['patient_name'] = $checkResult['fullname'];
-                $_SESSION['patient_phone'] = $checkResult['phone'];
-                header("Location: ../../Patient/Dashboard.php");
+                // Patient panel doesn't exist yet — send patients to the main page for now
+                header("Location: mainpage.php");
             }
             exit;
 
@@ -122,9 +116,9 @@ if (!empty($_SESSION['flash_registered'])) {
             <div class="deco-circle deco-circle--sm" aria-hidden="true"></div>
         </aside>
 
-
-        <!-- RIGHT PANEL — Login form -->
-
+        <!-- --------------------------------------------------------
+             RIGHT PANEL — Login form
+        -------------------------------------------------------- -->
         <main class="form-panel">
 
             <div class="form-card">
@@ -135,6 +129,9 @@ if (!empty($_SESSION['flash_registered'])) {
                     <p class="card-sub">Sign in to access the HMS dashboard</p>
                 </header>
 
+                <!-- ------------------------------------------------
+                     Feedback banners (PHP-generated)
+                ------------------------------------------------ -->
                 <?php if (!empty($error_message)): ?>
                     <!-- Error banner — shown when validation or auth fails -->
                     <div class="alert alert--error" role="alert">
