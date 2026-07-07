@@ -10,7 +10,8 @@ if (!isset($_SESSION['patient_id'])) {
     exit();
 }
 
-$patient_name = isset($_SESSION['patient_name']) ? $_SESSION['patient_name'] : '';
+$patient_id = $_SESSION['patient_id'];
+$patient_name = $_SESSION['patient_name'] ?? '';
 $patient_phone = isset($_SESSION['patient_phone']) ? $_SESSION['patient_phone'] : '';
 
 // Fetch doctors
@@ -23,53 +24,155 @@ if ($doctors_result) {
 }
 
 $message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $doctor_id = (int)$_POST['doctor_id'];
-    $patient_name_post = trim($_POST['patient_name']);
-    $age = isset($_POST['age']) ? (int)$_POST['age'] : null;
-    $gender = trim($_POST['gender']);
-    $phone = trim($_POST['phone']);
-    $date = trim($_POST['date']);
-    $department = trim($_POST['department']);
-    $reason = trim($_POST['reason']);
 
-    $source = 'Patient Form';
+    $doctor_id = (int) $_POST['doctor_id'];
 
-    $stmt = $conn->prepare("INSERT INTO appointments (doctor_id, patient_name, age, gender, phone, date, department, reason, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    if ($stmt) {
-        $stmt->bind_param('isissssss', $doctor_id, $patient_name_post, $age, $gender, $phone, $date, $department, $reason, $source);
-        if ($stmt->execute()) {
-            $stmt->close();
-            header('Location: ../../Patient/Dashboard.php');
-            exit();
-        } else {
-            $message = 'Failed to submit appointment.';
-        }
+    // Get doctor's name
+    $stmtDoctor = $conn->prepare("SELECT fullname FROM users WHERE id = ?");
+    $stmtDoctor->bind_param("i", $doctor_id);
+    $stmtDoctor->execute();
+
+    $doctor = $stmtDoctor->get_result()->fetch_assoc();
+
+    if (!$doctor) {
+        $message = "Doctor not found.";
     } else {
-        $message = 'Database error.';
+
+        $doctor_name = $doctor['fullname'];
+
+        $age = !empty($_POST['age']) ? (int) $_POST['age'] : NULL;
+        $gender = trim($_POST['gender']);
+        $phone = trim($_POST['phone']);
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $department = trim($_POST['department']);
+        $reason = trim($_POST['reason']);
+
+        $source = "Patient Form";
+
+        $stmt = $conn->prepare("
+            INSERT INTO appointments
+            (
+                patient_id,
+                doctor_id,
+                doctor_name,
+                appointment_date,
+                appointment_time,
+                department,
+                reason,
+                source,
+                age,
+                gender,
+                phone
+            )
+            VALUES
+            (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            )
+        ");
+
+        if ($stmt) {
+
+            $stmt->bind_param(
+                "iissssssiss",
+                $patient_id,
+                $doctor_id,
+                $doctor_name,
+                $date,
+                $time,
+                $department,
+                $reason,
+                $source,
+                $age,
+                $gender,
+                $phone
+            );
+
+            if ($stmt->execute()) {
+
+                header("Location: ../Patient/Dashboard.php");
+                exit();
+
+            } else {
+
+                $message = "Failed to book appointment: " . $stmt->error;
+
+            }
+
+        } else {
+
+            $message = "Database error: " . $conn->error;
+
+        }
+
     }
 }
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Book Appointment</title>
     <style>
-        body{font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif; background:#f5f5f5; padding:30px}
-        .form-card{max-width:640px;margin:0 auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
-        .form-card h2{margin-bottom:12px}
-        .row{display:flex;gap:10px}
-        input,select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px}
-        button{background:#1a8080;color:#fff;border:none;padding:10px 14px;border-radius:6px;cursor:pointer}
-        .msg{color:#c62828;margin-bottom:10px}
+        body {
+            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 30px
+        }
+
+        .form-card {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06)
+        }
+
+        .form-card h2 {
+            margin-bottom: 12px
+        }
+
+        .row {
+            display: flex;
+            gap: 10px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px
+        }
+
+        button {
+            background: #1a8080;
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer
+        }
+
+        .msg {
+            color: #c62828;
+            margin-bottom: 10px
+        }
     </style>
 </head>
+
 <body>
     <div class="form-card">
         <h2>Book an Appointment</h2>
-        <?php if ($message): ?><div class="msg"><?php echo htmlspecialchars($message); ?></div><?php endif; ?>
+        <?php if ($message): ?>
+            <div class="msg"><?php echo htmlspecialchars($message); ?></div><?php endif; ?>
         <form method="POST">
             <label>Choose Doctor</label>
             <select name="doctor_id" required>
@@ -104,6 +207,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Date</label>
             <input type="date" name="date" required>
 
+            <label>Time</label>
+            <input type="time" name="time" required>
+
             <label>Department</label>
             <input type="text" name="department" placeholder="e.g. Cardiology" required>
 
@@ -111,10 +217,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea name="reason" rows="3" placeholder="Short reason" required></textarea>
 
             <div style="display:flex;gap:10px;align-items:center;justify-content:flex-end">
-                <a href="login.php" style="text-decoration:none;color:#666">Cancel</a>
+                <a href="../Patient/Dashboard.php" style="text-decoration:none;color:#666">Cancel</a>
                 <button type="submit">Send Request</button>
             </div>
         </form>
     </div>
 </body>
+
 </html>

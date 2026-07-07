@@ -3,12 +3,12 @@ session_start();
 
 // Check if patient is logged in
 if (!isset($_SESSION['patient_id'])) {
-    header("Location: ../../Patient/Dashboard.php");
+    header("Location: ../Pages/login.php");
     exit();
 }
 
 // Include database connection
-include '../HospitalManagementSystem/DataBaseConnection/db.php';
+include '../DataBaseConnection/db.php';
 
 // Get patient name
 $patient_id = $_SESSION['patient_id'];
@@ -38,6 +38,7 @@ $current_date = date('l, d F Y');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -162,7 +163,7 @@ $current_date = date('l, d F Y');
             font-size: 20px;
         }
 
-        
+
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -350,6 +351,7 @@ $current_date = date('l, d F Y');
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Sidebar -->
@@ -357,7 +359,7 @@ $current_date = date('l, d F Y');
             <h2>Patient</h2>
             <div class="sidebar-menu">
                 <a href="Dashboard.php" class="active">Dashboard</a>
-                <a href="../HospitalManagementSystem/Pages/book_appointment.php">Book Appointment</a>
+                <a href="../Pages/book_appointment.php">Book Appointment</a>
             </div>
             <form method="POST" action="logout.php" style="margin-top: 40px;">
                 <button type="submit" class="logout-btn">Logout</button>
@@ -459,4 +461,5 @@ $current_date = date('l, d F Y');
         </div>
     </div>
 </body>
+
 </html>

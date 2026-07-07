@@ -52,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_role'] = $checkResult['role'];
 
             if ($checkResult['role'] === 'doctor') {
-                header("Location: ../DoctorPanel/pages/dashboard.php");
+                header("Location: ../DoctorPanel/pages/Dashboard.php");
             } else {
                 // Patient login — set patient_id and redirect to dashboard
                 $_SESSION['patient_id'] = $checkResult['id'];
                 $_SESSION['patient_name'] = $checkResult['fullname'];
                 $_SESSION['patient_phone'] = $checkResult['phone'];
-                header("Location: ../../Patient/Dashboard.php");
+                header("Location: ../Patient/Dashboard.php");
             }
             exit;
 
