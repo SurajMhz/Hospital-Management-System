@@ -11,7 +11,7 @@ $doctor_id = $_SESSION['user_id'];
 $doctor_name = $_SESSION['user_name'];
 $saved_msg = '';
 
-// ─── SAVE / UPDATE PRESCRIPTION ───────────────────────────────────────────────
+// SAVE / UPDATE PRESCRIPTION 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 
     $apt_id = (int) $_POST['apt_id'];
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     exit;
 }
 
-// ─── LOAD APPOINTMENTS FOR DROPDOWN ───────────────────────────────────────────
+//  LOAD APPOINTMENTS FOR DROPDOWN
 $apts = $conn->query("
 SELECT
     a.appointment_id,
@@ -61,7 +61,7 @@ WHERE a.doctor_id = $doctor_id
 ORDER BY a.appointment_date DESC
 ");
 
-// ─── IF AN APPOINTMENT IS SELECTED, LOAD IT ───────────────────────────────────
+//  IF AN APPOINTMENT IS SELECTED, LOAD IT 
 $selected_apt_id = isset($_GET['apt_id']) ? (int) $_GET['apt_id'] : 0;
 $existing = null;   // existing prescription (if any)
 $apt_info = null;   // selected appointment details
