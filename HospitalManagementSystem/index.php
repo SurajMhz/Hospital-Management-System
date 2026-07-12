@@ -7,7 +7,7 @@
 
   <title>CityMed Hospital Management System</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -21,7 +21,7 @@
 
 <body>
 
-  <!-- ===================== NAVBAR ===================== -->
+  
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavbar">
     <div class="container">
 
@@ -33,7 +33,7 @@
         <span class="brand-name">CityMed</span>
       </a>
 
-      <!-- Mobile Hamburger Toggle -->
+      <!-- Menu  toggle-->
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -58,7 +58,7 @@
           </li>
         </ul>
 
-        <!-- Login / Register Buttons -->
+        <!-- Login and Register Buttons -->
         <div class="d-flex gap-2">
           <a href="./Pages/login.php" class="btn btn-outline-light btn-sm px-3">Login</a>
           <a href="./Pages/register.php" class="btn btn-primary btn-sm px-3">Register</a>
@@ -69,7 +69,7 @@
   </nav>
 
 
-  <!-- ===================== HERO SECTION ===================== -->
+  <!--  Hero section-->
   <section class="hero-section" id="home">
     <div class="hero-overlay">
       <div class="container hero-content text-center text-white">
@@ -90,7 +90,7 @@
   </section>
 
 
-  <!-- ===================== STATS SECTION ===================== -->
+  <!-- Stats section  -->
   <section class="stats-section py-5" id="stats">
     <div class="container">
       <div class="row text-center g-4">
@@ -132,7 +132,7 @@
   </section>
 
 
-  <!-- ===================== ABOUT SECTION ===================== -->
+  <!--  About section  -->
   <section class="py-5 bg-light" id="about">
     <div class="container">
       <div class="row align-items-center g-5">
@@ -140,7 +140,7 @@
         <!-- Left: Image -->
         <div class="col-md-6">
           <div class="about-img-wrap">
-            <!-- Replace the src below with your actual hospital image -->
+          
             <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="Hospital Building"
               class="img-fluid rounded-4 shadow-lg">
             <div class="about-badge">
@@ -153,7 +153,7 @@
           </div>
         </div>
 
-        <!-- Right: Text -->
+        
         <div class="col-md-6">
           <p class="section-label text-primary">WHO WE ARE</p>
           <h2 class="fw-bold mb-3">Dedicated to Providing<br>Exceptional Healthcare</h2>
@@ -201,7 +201,7 @@
   </section>
 
 
-  <!-- ===================== SERVICES SECTION ===================== -->
+  <!-- Services Section -->
   <section class="py-5" id="services">
     <div class="container">
 
@@ -278,7 +278,7 @@
   </section>
 
 
-  <!-- ===================== DOCTORS SECTION ===================== -->
+  <!-- Doctors section -->
   <section class="py-5 bg-light" id="doctors">
     <div class="container">
 
@@ -331,7 +331,7 @@
   </section>
 
 
-  <!-- ===================== CONTACT SECTION ===================== -->
+  <!-- Contact Section -->
   <section class="py-5" id="contact">
     <div class="container">
 
@@ -392,7 +392,7 @@
   </section>
 
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- Footer-->
   <footer class="bg-dark text-white pt-5 pb-3">
     <div class="container">
       <div class="row g-4 mb-4">
@@ -445,12 +445,11 @@
   </footer>
 
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS link -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Navbar scroll effect script -->
+  <!-- Navbar scroll effect s-->
   <script>
-    // Makes the navbar solid when you scroll down, transparent at the top
     window.addEventListener('scroll', function () {
       const navbar = document.getElementById('mainNavbar');
       if (window.scrollY > 50) {
