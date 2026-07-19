@@ -116,9 +116,7 @@ if (!empty($_SESSION['flash_registered'])) {
             <div class="deco-circle deco-circle--sm" aria-hidden="true"></div>
         </aside>
 
-        <!-- --------------------------------------------------------
-             RIGHT PANEL — Login form
-        -------------------------------------------------------- -->
+        <!--   RIGHT PANEL—Login form -->
         <main class="form-panel">
 
             <div class="form-card">
@@ -129,9 +127,7 @@ if (!empty($_SESSION['flash_registered'])) {
                     <p class="card-sub">Sign in to access the HMS dashboard</p>
                 </header>
 
-                <!-- ------------------------------------------------
-                     Feedback banners (PHP-generated)
-                ------------------------------------------------ -->
+                <!-- Feedback banners (PHP-generated)-->
                 <?php if (!empty($error_message)): ?>
                     <!-- Error banner — shown when validation or auth fails -->
                     <div class="alert alert--error" role="alert">

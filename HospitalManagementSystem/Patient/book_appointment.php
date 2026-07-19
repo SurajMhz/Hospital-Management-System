@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="Dashboard.php">Dashboard</a>
                 <a href="./book_appointment.php" class="active">Book Appointment</a>
                 <a href="./ViewPrescription.php">View Prescription</a>
-                <button type="submit" class="logout-btn" onclick="logout-btn">Logout</button>
+                <button class="logout-btn" onclick="logout.php">Logout</button>
             </div>
         </div>
         <div class="form-card">

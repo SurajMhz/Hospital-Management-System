@@ -57,7 +57,7 @@ $current_date = date('l, d F Y');
                 <a href="Dashboard.php" class="active">Dashboard</a>
                 <a href="./book_appointment.php">Book Appointment</a>
                 <a href="./ViewPrescription.php">View Prescription</a>
-                <button type="submit" class="logout-btn" onclick="logout-btn">Logout</button>
+                <button class="logout-btn" onclick="logout.php">Logout</button>
             </div>
         </div>
 

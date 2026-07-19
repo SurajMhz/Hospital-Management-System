@@ -280,7 +280,7 @@ $cancelled = $conn->query("SELECT COUNT(*) as c FROM appointments WHERE doctor_i
         </div>
     </div>
 
-    <!-- FIX: Save scroll position before form submit, restore after reload so page doesn't jump to top -->
+
 
     <script>
         if (sessionStorage.getItem('scrollY')) {

@@ -49,7 +49,7 @@ $prescriptions = $stmt->get_result();
                 <a href="Dashboard.php">Dashboard</a>
                 <a href="./book_appointment.php">Book Appointment</a>
                 <a href="./ViewPrescription.php" class="active">View Prescription</a>
-                <button type="submit" class="logout-btn" onclick="logout-btn">Logout</button>
+                <button type="submit" class="logout-btn" onclick="logout.php">Logout</button>
             </div>
         </div>
 
@@ -68,16 +68,16 @@ $prescriptions = $stmt->get_result();
             <h2 class="section-title">Prescription</h2>
             <div class="appointments-container">
                 <h2 class="section-title">My Prescriptions</h2>
-                                <?php if ($prescriptions->num_rows > 0): ?>
+                <?php if ($prescriptions->num_rows > 0): ?>
 
-                                    <?php while ($row = $prescriptions->fetch_assoc()): ?>
+                    <?php while ($row = $prescriptions->fetch_assoc()): ?>
 
                         <div class="prescription-card">
 
                             <div class="prescription-header">
                                 <div class="doctor-info">
                                     <div class="doctor-avatar">
-                                                        <?= strtoupper(substr($row['doctor_name'], 0, 2)) ?>
+                                        <?= strtoupper(substr($row['doctor_name'], 0, 2)) ?>
                                     </div>
 
                                     <div>
@@ -88,13 +88,13 @@ $prescriptions = $stmt->get_result();
 
                                 <div class="appointment-date">
                                     <strong>
-                                                        <?= date('d M Y', strtotime($row['appointment_date'])) ?>
+                                        <?= date('d M Y', strtotime($row['appointment_date'])) ?>
                                     </strong>
 
-                                                    <?php if (!empty($row['appointment_time'])): ?>
+                                    <?php if (!empty($row['appointment_time'])): ?>
                                         <br>
-                                                        <?= date('h:i A', strtotime($row['appointment_time'])) ?>
-                                                    <?php endif; ?>
+                                        <?= date('h:i A', strtotime($row['appointment_time'])) ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -103,14 +103,14 @@ $prescriptions = $stmt->get_result();
                                 <div class="detail">
                                     <span class="label">Diagnosis</span>
                                     <span class="value">
-                                                        <?= nl2br(htmlspecialchars($row['diagnosis'])) ?>
+                                        <?= nl2br(htmlspecialchars($row['diagnosis'])) ?>
                                     </span>
                                 </div>
 
                                 <div class="detail">
                                     <span class="label">Medicine</span>
                                     <span class="value">
-                                                        <?= nl2br(htmlspecialchars($row['medicine'])) ?>
+                                        <?= nl2br(htmlspecialchars($row['medicine'])) ?>
                                     </span>
                                 </div>
 
@@ -119,44 +119,44 @@ $prescriptions = $stmt->get_result();
                                     <div class="detail">
                                         <span class="label">Dosage</span>
                                         <span class="value">
-                                                            <?= htmlspecialchars($row['dosage']) ?>
+                                            <?= htmlspecialchars($row['dosage']) ?>
                                         </span>
                                     </div>
 
                                     <div class="detail">
                                         <span class="label">Duration</span>
                                         <span class="value">
-                                                            <?= htmlspecialchars($row['duration']) ?>
+                                            <?= htmlspecialchars($row['duration']) ?>
                                         </span>
                                     </div>
 
                                 </div>
 
-                                                <?php if (!empty($row['notes'])): ?>
+                                <?php if (!empty($row['notes'])): ?>
 
                                     <div class="detail">
                                         <span class="label">Doctor Notes</span>
                                         <span class="value">
-                                                            <?= nl2br(htmlspecialchars($row['notes'])) ?>
+                                            <?= nl2br(htmlspecialchars($row['notes'])) ?>
                                         </span>
                                     </div>
 
-                                                <?php endif; ?>
+                                <?php endif; ?>
 
                             </div>
 
                         </div>
 
-                                    <?php endwhile; ?>
+                    <?php endwhile; ?>
 
-                                <?php else: ?>
+                <?php else: ?>
 
                     <div class="empty-prescription">
                         <h3>No prescriptions found</h3>
                         <p>Your doctor hasn't added any prescriptions yet.</p>
                     </div>
 
-                                <?php endif; ?>
+                <?php endif; ?>
 
             </div>
 
